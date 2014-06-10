@@ -10,10 +10,14 @@ $scope.find =""
 $scope.greeting = 'Hello'
 // $scope.details;
 $scope.location;
+//google markers infowindow
+// $scope.contentString;
+// $scope.infowindow;
+// end
 var markersArray = [];
 
-$scope.message = '';
-$scope.messageLog = ['hello', 'test2', 'message 3'];
+$scope.message = $scope.currentUser.facebook.name + '';
+$scope.messageLog = [];
 $scope.sendMessage = function () {
   // console.log($scope.message);
   // $scope.messageLog.push($scope.message);
@@ -21,6 +25,7 @@ $scope.sendMessage = function () {
 
   $http.post('/message', {msg: $scope.message}).success(function(msg) {
     console.log(msg);
+    $scope.messageLog.push(msg.msg);
     socket.emit('message', {msg: $scope.message});
 
   })
@@ -30,6 +35,7 @@ $scope.sendMessage = function () {
       console.log(msg);
       $scope.$apply(function() {
         $scope.messageLog.push(msg);
+
       })
 
     });
@@ -98,9 +104,30 @@ $scope.sendMessage = function () {
     };
     var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
+    var createMarker = function(position, markerImage, title, content){
+       var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            icon: markerImage,
+            title: title
+          });
+          var infowindow = new google.maps.InfoWindow({
+            content: title
+          });
+          google.maps.event.addListener(marker, 'click', function() {
+            console.log('yo');
+            infowindow.open(map,marker);
+          });
+          return marker;
+    };
+
     // begin onSuccess fn
 
     var onSuccess = function (position) {
+
+      //trying to add infowindow to google maps marker
+
+
       // console.log('test');
       $scope.location = {
         latitude: position.coords.latitude,
@@ -122,6 +149,13 @@ $scope.sendMessage = function () {
       }
 
       $http.post('/addMarker', addmarker).success(function(marker){
+
+        //trying out google markers info window
+      // var infowindow = new google.maps.InfoWindow({
+      // content: contentString
+    // });
+
+      //end
         // console.log(markersArray);
         var myMarkerFound = false;
         console.log("marker.userEmail: ", marker.userEmail);
@@ -132,6 +166,9 @@ $scope.sendMessage = function () {
             console.log('moving existing marker');
             markersArray[i].setPosition(currentlocation);
             myMarkerFound = true;
+            // google.maps.event.addListener(marker, 'click', function() {
+            //   infowindow.open(map, markersArray[i]);
+            // });
             // new google.maps.Marker({
             //   position: currentlocation,
             //   map: map,
@@ -150,16 +187,38 @@ $scope.sendMessage = function () {
           }
         }
         if (!myMarkerFound) {
-          var marker = new google.maps.Marker({
-            position: currentlocation,
-            map: map,
-            icon: marker.image,
-            title:"Hello World!"
-          });
+          createMarker(currentlocation, marker.image, marker.userEmail, "Hi")
+
+          // var marker = new google.maps.Marker({
+          //   position: currentlocation,
+          //   map: map,
+          //   icon: marker.image,
+          //   title:"Hello World!"
+          // });
+          // var contentString = '<p>testing</p>';
+          // var infowindow = new google.maps.InfoWindow({
+          //   content: contentString
+          // });
+
+          //trying out google markers info window
+          // google.maps.event.addListener(marker, 'click', function() {
+          //   console.log('yo');
+          //   infowindow.open(map,marker);
+          // });
+          //end
+
         }
         socket.emit('pin drop', {position: $scope.location, icon: marker.icon, title: marker.title});
         // });
       });
+
+      // var contentString = 'testing';
+
+      //   var infowindow = new google.maps.InfoWindow({
+      //   content: contentString
+      // });
+
+      //end
   };
 
 
@@ -169,11 +228,15 @@ $scope.sendMessage = function () {
       // markersArray =[];
       $http.get('/getmarker').success(function(data){
         for (var i=0; i < data.markers.length; i++) {
-          var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(data.markers[i].latlng.latitude, data.markers[i].latlng.longitude),
-            map: map,
-            icon: data.markers[i].image
-          });
+          var position = new google.maps.LatLng(data.markers[i].latlng.latitude, data.markers[i].latlng.longitude);
+          var icon = data.markers[i].image;
+          var userEmail = data.markers[i].userEmail;
+          var marker = createMarker(position, icon, userEmail, "Hi");
+          // var marker = new google.maps.Marker({
+          //   position: new google.maps.LatLng(data.markers[i].latlng.latitude, data.markers[i].latlng.longitude),
+          //   map: map,
+          //   icon: data.markers[i].image
+          // });
           marker.userEmail = data.markers[i].userEmail;
           markersArray.push(marker);
           // markersArray.push(marker);
@@ -188,12 +251,20 @@ $scope.sendMessage = function () {
     socket.on('pin drop', function(data) {
       // console.log('socket data');
       // console.log(data);
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(data.position.latitude, data.position.longitude),
-        icon: data.icon,
-        map: map,
-        title: data.title
-      });
+      var position = new google.maps.LatLng(data.position.latitude, data.position.longitude);
+      var icon = data.icon;
+      var title = data.title;
+
+
+      var marker = createMarker(position, icon, title, "Hi");
+
+
+      // new google.maps.Marker({
+      //   position: new google.maps.LatLng(data.position.latitude, data.position.longitude),
+      //   icon: data.icon,
+      //   map: map,
+      //   title: data.title
+      // });
     });
 
 
