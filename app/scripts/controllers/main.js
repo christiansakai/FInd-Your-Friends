@@ -12,6 +12,29 @@ $scope.greeting = 'Hello'
 $scope.location;
 var markersArray = [];
 
+$scope.message = '';
+$scope.messageLog = ['hello', 'test2', 'message 3'];
+$scope.sendMessage = function () {
+  // console.log($scope.message);
+  // $scope.messageLog.push($scope.message);
+  var message = $scope.message;
+
+  $http.post('/message', {msg: $scope.message}).success(function(msg) {
+    console.log(msg);
+    socket.emit('message', {msg: $scope.message});
+
+  })
+}
+
+    socket.on('message', function (msg) {
+      console.log(msg);
+      $scope.$apply(function() {
+        $scope.messageLog.push(msg);
+      })
+
+    });
+
+
           var style_array= [
     {
         "stylers": [
@@ -78,7 +101,7 @@ var markersArray = [];
     // begin onSuccess fn
 
     var onSuccess = function (position) {
-      console.log('test');
+      // console.log('test');
       $scope.location = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude
@@ -99,12 +122,12 @@ var markersArray = [];
       }
 
       $http.post('/addMarker', addmarker).success(function(marker){
-        console.log(markersArray);
+        // console.log(markersArray);
         var myMarkerFound = false;
         console.log("marker.userEmail: ", marker.userEmail);
 
         for (var i=0; i<markersArray.length; i++){
-          console.log("markersArr[i-",i,"].userEmail: ", markersArray[i].userEmail);
+          // console.log("markersArr[i-",i,"].userEmail: ", markersArray[i].userEmail);
           if(markersArray[i].userEmail === marker.userEmail){
             console.log('moving existing marker');
             markersArray[i].setPosition(currentlocation);
@@ -164,14 +187,15 @@ var markersArray = [];
 
     socket.on('pin drop', function(data) {
       // console.log('socket data');
-      console.log(data);
+      // console.log(data);
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(data.position.latitude, data.position.longitude),
         icon: data.icon,
         map: map,
         title: data.title
       });
-      var marker = new google.maps.Marker(data);
     });
+
+
 });
 

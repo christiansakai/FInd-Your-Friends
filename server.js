@@ -46,7 +46,12 @@ socket.on('connection', function(socket) {
   socket.on('pin drop', function(data) {
     // console.log(data);
     socket.broadcast.emit('pin drop', data);
-  })
+  });
+  // socket to emit message when received
+  socket.on('message', function(msg) {
+    // console.log(msg);
+    socket.emit('message', msg.msg);
+  });
 });
 
 
