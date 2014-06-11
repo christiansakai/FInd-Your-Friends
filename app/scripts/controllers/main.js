@@ -190,19 +190,18 @@ $scope.sendMessage = function () {
           if(markersArray[i].userEmail === marker.userEmail){
             console.log('moving existing marker');
             markersArray[i].setPosition(currentlocation);
-            // var date = Date.now().toString();
+            var date = DateTime.Now.toString("yyyy-MM-dd hh:mm:ss");
+            console.log(date);
             // markersArray[i].InfoWindow.setContent({'content': date});
             myMarkerFound = true;
-          //   var infowindow = new google.maps.InfoWindow({
-          //   content: title
-          // });
-          // google.maps.event.addListener(marker, 'click', function() {
-          //   console.log('yo');
-          //   infowindow.open(map,marker);
-          // });
-            // google.maps.event.addListener(marker, 'click', function() {
-            //   infowindow.open(map, markersArray[i]);
-            // });
+            var infowindow = new google.maps.InfoWindow({
+            content: date
+          });
+            console.log(infowindow);
+            console.log(date);
+            google.maps.event.addListener(markersArray[i], 'click', function() {
+              infowindow.open(map, markersArray[i]);
+            });
             // new google.maps.Marker({
             //   position: currentlocation,
             //   map: map,
