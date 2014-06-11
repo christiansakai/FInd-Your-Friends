@@ -18,9 +18,10 @@ var markersArray = [];
 
 // $scope.message = '';
 $scope.messageLog = [];
+// $scope.previousmessages = [];
 $scope.message = '';
 $scope.pic = '';
-$scope.testpic = $scopecurrentUser.profile_picture;
+$scope.testpic = $scope.currentUser.profile_picture;
 // $scope.userMessage = {message: $scope.message,
 // user: $scope.currentUser.facebook.name};
 
@@ -29,36 +30,36 @@ $scope.sendMessage = function () {
   // $scope.messageLog.push($scope.message);
   var message = $scope.currentUser.facebook.name+': '+$scope.message;
   var testpic = $scope.testpic;
-  console.log(message);
+  // $scope.location = {
+  //       latitude: position.coords.latitude,
+  //       longitude: position.coords.longitude
+  //     }
+  // var latlng = $scope.location;
 
-  // $http.post('/message', {msg: message, pic: testpic}).success(function(data) {
-    // console.log(data);
-    // console.log(msg.pic);
-    // console.log("message route:" + JSON.stringify(data))
+  var addmessage = {
+    msg: message,
+    pic: testpic
+  }
+
+ $http.post('/addMessage', addmessage).success(function(themessage) {
+  // $scope.messageLog.push(themessage);
+
+
+ });
     var data = {msg: message, pic: testpic};
-    // $scope.pic = data.pic;
-    // $scope.userMessage = usr.concat(msg.msg);
-    // console.log($scope.userMessage);
     $scope.messageLog.push(data);
     socket.emit('message', data);
     $scope.message=""
-    // console.log(msg);
 
-  // })
-}
+
+};
+
     socket.on('message', function (msg) {
-      console.log(msg);
-      console.log('<sup>;</sup>');
       $scope.$apply(function() {
-        console.log("socket:" + msg)
         $scope.messageLog.push(msg);
         console.log("message log:" + JSON.stringify($scope.messageLog));
         $scope.pic = msg.pic;
-        // console.log(msg.pic);
-        // console.log(msg);
-
       })
-
     });
 
 
@@ -116,6 +117,9 @@ $scope.sendMessage = function () {
         ]
     }
 ]
+
+  // var info = new Date().toString();
+
 
     var mapOptions = {
       center: new google.maps.LatLng(-34.397, 150.644),
@@ -186,7 +190,16 @@ $scope.sendMessage = function () {
           if(markersArray[i].userEmail === marker.userEmail){
             console.log('moving existing marker');
             markersArray[i].setPosition(currentlocation);
+            // var date = Date.now().toString();
+            // markersArray[i].InfoWindow.setContent({'content': date});
             myMarkerFound = true;
+          //   var infowindow = new google.maps.InfoWindow({
+          //   content: title
+          // });
+          // google.maps.event.addListener(marker, 'click', function() {
+          //   console.log('yo');
+          //   infowindow.open(map,marker);
+          // });
             // google.maps.event.addListener(marker, 'click', function() {
             //   infowindow.open(map, markersArray[i]);
             // });
@@ -208,6 +221,7 @@ $scope.sendMessage = function () {
           }
         }
         if (!myMarkerFound) {
+          // var date = Date.now()
           createMarker(currentlocation, marker.image, marker.userEmail, "Hi")
 
           // var marker = new google.maps.Marker({
@@ -262,6 +276,16 @@ $scope.sendMessage = function () {
           markersArray.push(marker);
           // markersArray.push(marker);
         };
+      });
+
+      $http.get('/getmessage').success(function(data){
+        for (var i=0; i<data.messages.length; i++){
+          $scope.messageLog.push(data.messages[i]);
+        }
+        console.log(data);
+
+
+
       });
     };
 
