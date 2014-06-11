@@ -16,25 +16,46 @@ $scope.location;
 // end
 var markersArray = [];
 
-$scope.message = $scope.currentUser.facebook.name + '';
+// $scope.message = '';
 $scope.messageLog = [];
+$scope.message = '';
+$scope.pic = '';
+$scope.testpic = $scopecurrentUser.profile_picture;
+// $scope.userMessage = {message: $scope.message,
+// user: $scope.currentUser.facebook.name};
+
 $scope.sendMessage = function () {
   // console.log($scope.message);
   // $scope.messageLog.push($scope.message);
-  var message = $scope.message;
+  var message = $scope.currentUser.facebook.name+': '+$scope.message;
+  var testpic = $scope.testpic;
+  console.log(message);
 
-  $http.post('/message', {msg: $scope.message}).success(function(msg) {
-    console.log(msg);
-    $scope.messageLog.push(msg.msg);
-    socket.emit('message', {msg: $scope.message});
+  // $http.post('/message', {msg: message, pic: testpic}).success(function(data) {
+    // console.log(data);
+    // console.log(msg.pic);
+    // console.log("message route:" + JSON.stringify(data))
+    var data = {msg: message, pic: testpic};
+    // $scope.pic = data.pic;
+    // $scope.userMessage = usr.concat(msg.msg);
+    // console.log($scope.userMessage);
+    $scope.messageLog.push(data);
+    socket.emit('message', data);
+    $scope.message=""
+    // console.log(msg);
 
-  })
+  // })
 }
-
     socket.on('message', function (msg) {
       console.log(msg);
+      console.log('<sup>;</sup>');
       $scope.$apply(function() {
+        console.log("socket:" + msg)
         $scope.messageLog.push(msg);
+        console.log("message log:" + JSON.stringify($scope.messageLog));
+        $scope.pic = msg.pic;
+        // console.log(msg.pic);
+        // console.log(msg);
 
       })
 

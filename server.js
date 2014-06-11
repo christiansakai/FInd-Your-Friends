@@ -49,8 +49,9 @@ socket.on('connection', function(socket) {
   });
   // socket to emit message when received
   socket.on('message', function(msg) {
+    console.log("server side socket:" +msg);
     // console.log(msg);
-    socket.broadcast.emit('message', msg.msg);
+    socket.broadcast.emit('message', msg);
   });
 });
 

@@ -2623,5 +2623,20 @@ body.vjs-full-window {
 .mll, .mhl, .mal {
   margin-left: 20px; }
 
+li
+{
+    list-style-type: none;
+}
+
+.chatbox
+{
+  overflow: scroll;
+  position: relative;
+}
+
+.chatform {
+  position: absolute;
+  bottom: 0;
+}
 
 }
