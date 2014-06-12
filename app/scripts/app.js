@@ -4,7 +4,8 @@ angular.module('findyourfriendsApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'luegg.directives'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
