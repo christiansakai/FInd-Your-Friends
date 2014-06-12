@@ -7,7 +7,7 @@ angular.module('findyourfriendsApp')
 
     $scope.login = function(form) {
       $scope.submitted = true;
-      
+
       if(form.$valid) {
         Auth.login({
           email: $scope.user.email,
@@ -15,7 +15,7 @@ angular.module('findyourfriendsApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          $location.path('/main');
         })
         .catch( function(err) {
           err = err.data;

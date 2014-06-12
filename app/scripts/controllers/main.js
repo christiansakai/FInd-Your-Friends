@@ -131,11 +131,13 @@ $scope.sendMessage = function () {
     var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
     var createMarker = function(position, markerImage, title, content){
+      // var date = new Date().toString();
        var marker = new google.maps.Marker({
             position: position,
             map: map,
             icon: markerImage,
-            title: title
+            title: title,
+            name: name
           });
           var infowindow = new google.maps.InfoWindow({
             content: title
@@ -171,10 +173,13 @@ $scope.sendMessage = function () {
       var  addmarker = {
         userEmail: $scope.currentUser.facebook.email,
         latlng: latlng,
-        image: $scope.currentUser.profile_picture
+        image: $scope.currentUser.profile_picture,
+        name: $scope.currentUser.facebook.name
       }
+      console.log(addmarker);
 
       $http.post('/addMarker', addmarker).success(function(marker){
+        console.log(marker);
 
         //trying out google markers info window
       // var infowindow = new google.maps.InfoWindow({
@@ -187,22 +192,28 @@ $scope.sendMessage = function () {
         console.log("marker.userEmail: ", marker.userEmail);
 
         for (var i=0; i<markersArray.length; i++){
+          var date = new Date().toString();
           // console.log("markersArr[i-",i,"].userEmail: ", markersArray[i].userEmail);
           if(markersArray[i].userEmail === marker.userEmail){
             console.log('moving existing marker');
             markersArray[i].setPosition(currentlocation);
-            var date = new Date();
+            google.maps.event.addListener(markersArray[i], 'click', function() {
+              infoWindow.setContent(date);
+              infoWindow.open(map, markersArray[i]);
+            });
             console.log(date);
             // markersArray[i].InfoWindow.setContent({'content': date});
             myMarkerFound = true;
-            var infowindow = new google.maps.InfoWindow({
-            content: date
-          });
-            console.log(infowindow);
-            console.log(date);
-            google.maps.event.addListener(markersArray[i], 'click', function() {
-              infowindow.open(map, markersArray[i]);
-            });
+
+
+          //   var infowindow = new google.maps.InfoWindow({
+          //   content: date+marker.name
+          // });
+          //   console.log(infowindow);
+          //   console.log(date);
+          //   google.maps.event.addListener(markersArray[i], 'click', function() {
+          //     infowindow.open(map, markersArray[i]);
+          //   });
             // new google.maps.Marker({
             //   position: currentlocation,
             //   map: map,
@@ -222,7 +233,7 @@ $scope.sendMessage = function () {
         }
         if (!myMarkerFound) {
           // var date = Date.now()
-          createMarker(currentlocation, marker.image, marker.userEmail, "Hi")
+          createMarker(currentlocation, marker.image, marker.userEmail, marker.name);
 
           // var marker = new google.maps.Marker({
           //   position: currentlocation,
@@ -266,6 +277,7 @@ $scope.sendMessage = function () {
           var position = new google.maps.LatLng(data.markers[i].latlng.latitude, data.markers[i].latlng.longitude);
           var icon = data.markers[i].image;
           var userEmail = data.markers[i].userEmail;
+          var name = data.markers[i].name;
           var marker = createMarker(position, icon, userEmail, "Hi");
           // var marker = new google.maps.Marker({
           //   position: new google.maps.LatLng(data.markers[i].latlng.latitude, data.markers[i].latlng.longitude),

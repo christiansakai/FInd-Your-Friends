@@ -25,6 +25,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <div ng-include="'partials/navbar'" class="navbar"></div>
     <div class="container" ng-view=""></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -54,7 +55,7 @@
     <script src="bower_components/angularjs-scroll-glue/src/scrollglue.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLt-aJFdoiLcvRZhlc6TrAX8vDqn_3y8E&sensor=false&callback=initialize"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLt-aJFdoiLcvRZhlc6TrAX8vDqn_3y8E&sensor=false"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
 
         <script src='bower_components/socket.io-client/socket.io.js'></script>
@@ -70,6 +71,7 @@
         <script src="scripts/services/user.js"></script>
         <script src="scripts/services/socket.js"></script>
         <script src="scripts/directives/mongooseError.js"></script>
+        <script src="scripts/controllers/home.js"></script>
         <!-- endbuild -->
 </body>
 </html>

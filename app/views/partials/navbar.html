@@ -1,9 +1,9 @@
 <div class="header" ng-controller="NavbarCtrl">
   <ul class="nav nav-pills pull-right">
-    <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
+    <li ng-show="currentUser.facebook" ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
         <a ng-href="{{item.link}}">{{item.title}}</a>
     </li>
-    <li ng-hide="currentUser.facebook" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>
+    <!-- <li ng-hide="currentUser.facebook" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li> -->
     <!-- <li ng-hide="currentUser.facebook" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li> -->
     <li ng-show="currentUser.facebook" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
     <li><img ng-if="currentUser.profile_picture" ng-src="{{currentUser.profile_picture}}"></li>
