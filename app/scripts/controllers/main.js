@@ -20,7 +20,8 @@ var markersArray = [];
 $scope.messageLog = [];
 $scope.glued = true;
 // $scope.previousmessages = [];
-$scope.message = '';
+$scope.date = new Date().toString();
+$scope.message ='';
 $scope.pic = '';
 $scope.testpic = $scope.currentUser.profile_picture;
 // $scope.userMessage = {message: $scope.message,
@@ -261,14 +262,18 @@ $scope.sendMessage = function () {
 
         for (var i=0; i<markersArray.length; i++){
           var date = new Date().toString();
+          var name = marker.name;
+          var all = name+"last logged in at "+date;
           // console.log("markersArr[i-",i,"].userEmail: ", markersArray[i].userEmail);
           if(markersArray[i].userEmail === marker.userEmail){
             console.log('moving existing marker');
+            // var infowindow = new google.maps.InfoWindow({
+            //   content: all
+            // })
             markersArray[i].setPosition(currentlocation);
-            google.maps.event.addListener(markersArray[i], 'click', function() {
-              infoWindow.setContent(date);
-              infoWindow.open(map, markersArray[i]);
-            });
+            // google.maps.event.addListener(markersArray[i], 'click', function() {
+            //   infowindow.open(map, markersArray[i]);
+            // });
             console.log(date);
             // markersArray[i].InfoWindow.setContent({'content': date});
             myMarkerFound = true;
@@ -345,7 +350,8 @@ $scope.sendMessage = function () {
           var icon = data.markers[i].image;
           var userEmail = data.markers[i].userEmail;
           var name = data.markers[i].name;
-          var marker = createMarker(position, icon, userEmail, "Hi");
+          var all = name+" was here within the hour";
+          var marker = createMarker(position, icon, all, "Hi");
           // var marker = new google.maps.Marker({
           //   position: new google.maps.LatLng(data.markers[i].latlng.latitude, data.markers[i].latlng.longitude),
           //   map: map,
