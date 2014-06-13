@@ -4800,6 +4800,10 @@ body {
 
 }
 
+ul {
+  padding: 0 !important;
+}
+
 li
 {
     list-style-type: none;
@@ -4812,10 +4816,10 @@ li
 }
 .chatbox
 {
-  padding-top: 25px;
+  padding-top: 0;
   padding-left: 25px;
   padding-right: 25px;
-  padding-bottom: 25px;
+  padding-bottom: 0;
   height: 500px;
   overflow: scroll;
   position: relative;
@@ -4862,7 +4866,7 @@ li
 }
 
 .morebuttons {
-  padding-left: 200px;
+  padding-left: 250px !important;
 }
 
 
@@ -4875,6 +4879,7 @@ a.active {
 }
 
 .buttons {
+  padding-left: 250px !important;
   padding-right: 250px !important;
   radius: 20%;
 }
@@ -4908,20 +4913,64 @@ a.active {
 // .messages {
 //   background-color: rgb(219, 122, 238) !important;
 //   padding-top: 50px, 50px !important;
-//   border-radius: 100% !important;
+//   border-radius: 5% !important;
 // }
 
-.messages {
-  font-color: rgb(219, 122, 238);
+// .messages {
+//   font-color: rgb(219, 122, 238);
+// }
+
+// .chat_message {
+//   display: inline;
+// }
+
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    // border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
 }
 
 
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+    font-size: .85em;
+
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 250px;
+}
+
+.scroll-glue {
+  margin-bottom: 0px !important;
+  height: 100% !important;
+}
 
 
-
-
-
-
-// map-canvas {
-//   width: 100%;
-// }

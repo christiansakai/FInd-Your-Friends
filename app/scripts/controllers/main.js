@@ -291,17 +291,16 @@ $scope.sendMessage = function () {
 
           // } else {
             // console.log('making anew marker')
-            // new google.maps.Marker({
-            //   position: currentlocation,
-            //   map: map,
+            // new google.maps.Marker({            //   map: map,
             //   icon: marker.image,
             //   title:"Hello World!"
             // });
           }
         }
         if (!myMarkerFound) {
-          // var date = Date.now()
-          createMarker(currentlocation, marker.image, marker.userEmail, marker.name);
+          var date = new Date().toString();
+          var all = marker.name+" last logged in at "+date;
+          createMarker(currentlocation, marker.image, all);
 
           // var marker = new google.maps.Marker({
           //   position: currentlocation,

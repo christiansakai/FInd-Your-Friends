@@ -12,15 +12,49 @@
   <div class="containchat">
   <div class="col-md-6" ng-show="currentUser.facebook"> <!-- CHATBOX AND SUBMIT FORM-->
     <div class="chatbox">
+
+
+
+
       <div scroll-glue class="scroll-glue" ng-disable='true'>
-        <ul>
-          <li class="messages" ng-repeat='message in messageLog track by $index'>
-            <img class="rounded-image" ng-src="{{message.pic}}"><!-- {{message.name}} -->
-            {{message.msg}}
+        <ul class='chat'>
+          <li class='left clearfix' ng-repeat='message in messageLog track by $index'>
+
+            <span class="chat-img pull-left">
+              <img ng-src="{{message.pic}}" alt="No Pic" class="img-circle">
+            </span>
+            <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">{{message.name}}</strong>
+                <!-- <small class="pull-right text-muted">
+                <span class="glyphicon glyphicon-time"></span>12 mins ago</small> -->
+              </div>
+              <p> {{message.msg}} </p>
+            </div>
+
+
+
+
+<!--             <div class='chat_message'>
+            <div class='col-sm-1'><img class="rounded-image" ng-src="{{message.pic}}">{{message.name}}</div>
+            <div class="messages col-sm-6">{{message.msg}}</div>
+            </div> -->
+
           </li>
         </ul>
       </div>
+
+
+
+
+
+
     </div>
+
+
+
+
+
     <div class="chatform">
       <form role='form' novalidate name='form'>
         <div class="form-group">
