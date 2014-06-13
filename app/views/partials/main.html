@@ -1,15 +1,21 @@
+<div ng-hide="currentUser.facebook" class="jumbotron">
+  <a href="/auth/facebook/" target="_self"><button type="button" class="btn btn-primary">Login</button></a>
+</div>
 <div class="row" ng-init='initApp()'>
+  <div class="containmap">
   <div class="col-md-6"> <!-- MAP-->
     <div ng-show="currentUser.facebook" id="map-canvas">
     </div>
   </div> <!-- END OF MAP-->
+</div>
 
+  <div class="containchat">
   <div class="col-md-6" ng-show="currentUser.facebook"> <!-- CHATBOX AND SUBMIT FORM-->
     <div class="chatbox">
       <div scroll-glue class="scroll-glue" ng-disable='true'>
         <ul>
           <li ng-repeat='message in messageLog track by $index'>
-            <img ng-src="{{message.pic}}">
+            <img class="rounded-image" ng-src="{{message.pic}}">
             {{message.msg}}
           </li>
         </ul>
@@ -18,12 +24,13 @@
     <div class="chatform">
       <form role='form' novalidate name='form'>
         <div class="form-group">
-          <input type="text" style="width:80%" required ng-max='50' ng-model='message' focus>
+          <input class="border" type="text" style="width:80%" required ng-max='50' ng-model='message' focus>
           <button class="btn btn-sm btn-primary" ng-enable='form.$valid' ng-click='sendMessage()'>Send!</button>
         </div>
       </form>
     </div>
   </div> <!-- END OF CHATBOX AND SUBMIT FORM-->
+</div>
 </div> <!-- END OF ROW -->
 
 <div class="footer">

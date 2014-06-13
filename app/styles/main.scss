@@ -1,5 +1,5 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
-
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600);
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 
 @font-face {
@@ -4783,15 +4783,21 @@ body {
 .marketing p + h4 {
     margin-top: 28px;
 }
-
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-color: #404040;
+  padding-top: 0;
+}
 .navbar {
   padding-bottom: 10px;
 }
 
 #map-canvas {
-  height: 400px;
+  padding-top: 50px;
+  height: 500px;
   width: 100%;
-  padding: 10px;
+  border-radius: 4%;
+
 }
 
 li
@@ -4806,15 +4812,23 @@ li
 }
 .chatbox
 {
-  height: 400px;
+  padding-top: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  height: 500px;
   overflow: scroll;
   position: relative;
   background-color: #FFF;
+  border: 1px solid rgb(195, 195, 195);
+  border-radius: 5%;
 }
 
 .chatform {
   margin-top: 10px;
   position: relative;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .footer {
@@ -4826,6 +4840,51 @@ li
   border-bottom: none;
   border-top: none;
 }
+
+
+.navbar {
+  padding-top: 20px;
+}
+
+.rounded-image {
+  border-radius: 100%;
+  border: rgb(219, 122, 238) !important;
+}
+
+.name {
+  padding-left: 10px;
+}
+
+.border {
+  border-radius: 5%;
+}
+
+.morebuttons {
+  padding-left: 200px;
+}
+
+
+a.active {
+  background-color: rgb(219, 122, 238) !important;
+}
+
+.btn-primary {
+  background-color: rgb(219, 122, 238) !important;
+}
+
+.buttons {
+  padding-right: 250px !important;
+}
+
+.jumbotron {
+  background: white !important;
+  border-bottom: 0px !important;
+}
+
+
+
+
+
 
 
 

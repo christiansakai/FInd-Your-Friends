@@ -10,10 +10,6 @@ angular.module('findyourfriendsApp', [
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'partials/home',
-        controller: 'HomeCtrl'
-      })
-      .when('/main', {
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
       })
