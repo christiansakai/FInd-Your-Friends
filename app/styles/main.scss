@@ -4973,4 +4973,34 @@ a.active {
   height: 100% !important;
 }
 
+@media screen and (max-width: 600px) {
+  .chatbox {
+    height:300px;
+
+  }
+  .img-circle {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+  }
+  .primary-font {
+    font-size: .75em;
+  }
+
+  #map-canvas {
+    height:300px;
+  }
+
+  .chat-body, .chat li.left {
+    margin-left: 5px !important;
+  }
+
+  .buttons {
+    float: right !important;
+    padding-left: 500px !important;
+    margin-left: 500px !important;
+  }
+
+}
+
 

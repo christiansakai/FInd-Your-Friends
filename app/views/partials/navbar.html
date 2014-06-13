@@ -1,6 +1,6 @@
   <div class="header" ng-controller="NavbarCtrl">
     <ul class="nav nav-pills pull-right buttons">
-      <li><img class="rounded-image" ng-if="currentUser.profile_picture" ng-src="{{currentUser.profile_picture}}"></li>
+      <li class="profilepic"><img class="rounded-image" ng-if="currentUser.profile_picture" ng-src="{{currentUser.profile_picture}}"></li>
       <li class="name"><ng-show="currentUser.facebook">{{currentUser.facebook.name}}</li>
     </ul>
     <ul class="nav nav-pills morebuttons">
