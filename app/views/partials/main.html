@@ -14,8 +14,8 @@
     <div class="chatbox">
       <div scroll-glue class="scroll-glue" ng-disable='true'>
         <ul>
-          <li ng-repeat='message in messageLog track by $index'>
-            <img class="rounded-image" ng-src="{{message.pic}}">
+          <li class="messages" ng-repeat='message in messageLog track by $index'>
+            <img class="rounded-image" ng-src="{{message.pic}}"><!-- {{message.name}} -->
             {{message.msg}}
           </li>
         </ul>

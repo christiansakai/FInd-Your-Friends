@@ -29,7 +29,8 @@ $scope.testpic = $scope.currentUser.profile_picture;
 $scope.sendMessage = function () {
   // console.log($scope.message);
   // $scope.messageLog.push($scope.message);
-  var message = $scope.currentUser.facebook.name+': '+$scope.message;
+  var name = $scope.currentUser.facebook.name;
+  var message =$scope.message;
   var testpic = $scope.testpic;
   // $scope.location = {
   //       latitude: position.coords.latitude,
@@ -38,6 +39,7 @@ $scope.sendMessage = function () {
   // var latlng = $scope.location;
 
   var addmessage = {
+    name: name,
     msg: message,
     pic: testpic
   }
@@ -47,7 +49,7 @@ $scope.sendMessage = function () {
 
 
  });
-    var data = {msg: message, pic: testpic};
+    var data = {name: name, msg: message, pic: testpic};
     $scope.messageLog.push(data);
     socket.emit('message', data);
     $scope.message=""
@@ -60,15 +62,108 @@ $scope.sendMessage = function () {
         $scope.messageLog.push(msg);
         console.log("message log:" + JSON.stringify($scope.messageLog));
         $scope.pic = msg.pic;
+        $scope.name = msg.name;
+        $scope.message = msg.message;
       })
     });
 
 
           var style_array= [
+          {
+        "featureType": "landscape",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 65
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
     {
+        "featureType": "poi",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 51
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 30
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 40
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.province",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels",
         "stylers": [
             {
                 "visibility": "on"
+            },
+            {
+                "lightness": -25
             },
             {
                 "saturation": -100
@@ -77,43 +172,16 @@ $scope.sendMessage = function () {
     },
     {
         "featureType": "water",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "saturation": 100
-            },
-            {
-                "hue": "#00ffe6"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
         "elementType": "geometry",
         "stylers": [
             {
-                "saturation": 100
+                "hue": "#ffff00"
             },
             {
-                "hue": "#00ffcc"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "stylers": [
+                "lightness": -25
+            },
             {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.park",
-        "stylers": [
-            {
-                "visibility": "on"
+                "saturation": -97
             }
         ]
     }

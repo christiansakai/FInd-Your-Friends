@@ -4847,6 +4847,8 @@ li
 }
 
 .rounded-image {
+  padding-bottom: 5px !important;
+  padding-right: 8px !important;
   border-radius: 100%;
   border: rgb(219, 122, 238) !important;
 }
@@ -4874,11 +4876,43 @@ a.active {
 
 .buttons {
   padding-right: 250px !important;
+  radius: 20%;
 }
 
 .jumbotron {
   background: white !important;
   border-bottom: 0px !important;
+}
+
+.names {
+  font-color: rgb(219, 122, 238);
+
+}
+
+.containerstuff {
+  width: 200px;
+}
+
+.rightdiv
+{
+  width: 2px;
+  float: right;
+}
+
+.imagename {
+  width: 2px;
+  float: left;
+
+}
+
+// .messages {
+//   background-color: rgb(219, 122, 238) !important;
+//   padding-top: 50px, 50px !important;
+//   border-radius: 100% !important;
+// }
+
+.messages {
+  font-color: rgb(219, 122, 238);
 }
 
 
